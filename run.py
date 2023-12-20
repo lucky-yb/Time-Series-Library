@@ -9,9 +9,11 @@ from exp.exp_classification import Exp_Classification
 import random
 import numpy as np
 import yaml
+from utils.print_args import print_args
+
 
 # 可以改成自己的yaml路径
-cfg_path = './cfg/test.yaml'
+cfg_path = './cfg/short_predict.yaml'
 
 if __name__ == '__main__':
     fix_seed = 2021
@@ -48,6 +50,8 @@ if __name__ == '__main__':
     parser.add_argument('--label_len', type=int, default=data['label_len'], help='start token length')
     parser.add_argument('--pred_len', type=int, default=data['pred_len'], help='prediction sequence length')
     parser.add_argument('--seasonal_patterns', type=str, default=data['seasonal_patterns'], help='subset for M4')
+    parser.add_argument('--inverse', action='store_true', help='inverse output data', default=data['inverse'])
+
 
     # inputation task
     parser.add_argument('--mask_rate', type=float, default=data['mask_rate'], help='mask ratio')
@@ -107,9 +111,10 @@ if __name__ == '__main__':
 
     key = data.keys()
     print("config: ")
-    print("-----------------------------------------------------")
-    for item in key:
-        print("{} : {}".format(item, data[item]))
+    print_args(args)
+    # print("-----------------------------------------------------")
+    # for item in key:
+    #     print("{} : {}".format(item, data[item]))
 
     if args.use_gpu and args.use_multi_gpu:
         args.devices = args.devices.replace(' ', '')
