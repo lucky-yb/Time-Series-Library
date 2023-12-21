@@ -49,7 +49,7 @@ output_attention: 0 # whether to output attention in ecoder
 num_workers: 4 # data loader num workers
 itr: 1 # experiments times
 train_epochs: 10 # 训练次数
-batch_size: 32 # batch size of train input data
+batch_size: 50 # batch size of train input data
 patience: 3 # early stopping patience
 learning_rate: 0.0001 # optimizer learning rate
 des: test  # exp description
