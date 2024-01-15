@@ -12,6 +12,7 @@ import time
 import warnings
 import numpy as np
 import pandas
+from datetime import datetime
 
 warnings.filterwarnings('ignore')
 
@@ -53,10 +54,14 @@ class Exp_Short_Term_Forecast(Exp_Basic):
     def train(self, setting):
         train_data, train_loader = self._get_data(flag='train')
         vali_data, vali_loader = self._get_data(flag='val')
-
-        path = os.path.join(self.args.checkpoints, setting)
+        # 获取当前日期和时间
+        current_datetime = datetime.now()
+        formatted_datetime = current_datetime.strftime("%Y-%m-%_d%H%M%S")
+        path = os.path.join(self.args.checkpoints, formatted_datetime)
         if not os.path.exists(path):
             os.makedirs(path)
+        with open(path + "/config.txt", "w") as cfg:
+            cfg.write(setting)
 
         time_now = time.time()
 
@@ -121,7 +126,7 @@ class Exp_Short_Term_Forecast(Exp_Basic):
 
             adjust_learning_rate(model_optim, epoch + 1, self.args)
 
-        best_model_path = path + '/' + 'checkpoint.pth'
+        best_model_path = path + '/' + epoch + 'checkpoint.pth'
         self.model.load_state_dict(torch.load(best_model_path))
 
         return self.model
