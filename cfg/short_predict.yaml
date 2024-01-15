@@ -11,7 +11,7 @@ data_path:  ETTh1.csv   # data文件的名字
 features: M # options:[M, S, MS]; M:multivariate predict multivariate, S:univariate predict univariate, MS:multivariate predict univariate
 target: OT # 要预测的值的名称
 freq: h # 预测的time频率，年、月、日等，options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly]
-checkpoints: ./checkpoints/short_term_forecast/ # model保存的地址
+checkpoints: ./checkpoints/ # model保存的地址
 
 # forecasting task config
 seq_len: 96 # input sequence length
